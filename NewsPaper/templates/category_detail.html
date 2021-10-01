@@ -1,0 +1,28 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Category
+{% endblock title %}
+
+{% block content %}
+    <h1>Категории постов</h1>
+            <h2>{{ category }}</h2>
+            <hr>
+
+        <form method="post">
+        {% csrf_token %}
+            {% if not if_not_subscriber %}
+                <button>
+            <a href="{% url 'subscriber' %}">Подписаться</a>
+                </button>
+            {% else %}
+                <button>
+            <a href="{% url 'not_subscriber' %}">Отписаться</a>
+                </button>
+            {% endif %}
+        </form>
+
+    {{ category.id }}<br>
+    {{ category.subscribers }}<br>
+
+{% endblock content %}
