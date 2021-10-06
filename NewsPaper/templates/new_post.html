@@ -7,8 +7,8 @@
 </head>
 <body>
     <h2>
-        Новый пост<br>{{ new_post.title }}
+        <br>{{ new_post.title }}
     </h2>
-    <p>УХ - {{ new_post.postCategory.id }} ...ммм... <a href="{% url 'post_detail' new_post.id %}">{{ new_post.text|truncatechars:50 }}</a> </p>
+    <p>УХ - {{ cat }} ...ммм... <a href="{% url 'post_detail' new_post.id %}">{{ new_post.text|truncatechars:50 }}</a> </p>
 </body>
 </html>

@@ -4,7 +4,6 @@ from .filters import PostFilter
 from django.shortcuts import render, redirect, reverse
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
@@ -45,6 +44,12 @@ class PostDetail(DetailView):
     # context_object_name = 'post'
     template_name = 'post_detail.html'
     queryset = Post.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        de = kwargs['object'].postCategory
+        context['pop'] = de.all().last().subscribers.all()
+        return context
 
 
 class PostListSearch(ListView, ):
