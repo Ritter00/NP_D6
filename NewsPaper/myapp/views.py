@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Category, SignUser, User
 from .filters import PostFilter
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
@@ -10,6 +10,8 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 class PostList(ListView):
@@ -129,16 +131,12 @@ class CategoryDetail(LoginRequiredMixin, DetailView):
 def subscriber(request, pk):
     user = request.user.id
     sub_user = User.objects.get(id=user)
-    # pk= request.META.get('HTTP_REFERER')[-1]
-
     cat = Category.objects.get(id=pk)
-    cat.subscribers.add(sub_user)
-    return redirect(request.META.get('HTTP_REFERER'))
+    if cat.subscribers.filter(id=user):
+        cat.subscribers.remove(sub_user)
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        cat.subscribers.add(sub_user)
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
-def is_subscriber(request, pk):
-    user = request.user.id
-    sub_user = User.objects.get(id=user)
-    cat = Category.objects.get(id=pk)
-    cat.subscribers.remove(sub_user)
-    return redirect(request.META.get('HTTP_REFERER'))

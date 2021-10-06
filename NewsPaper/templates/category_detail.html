@@ -8,17 +8,15 @@ Category
     <h1>Категории постов</h1>
             <h2>{{ category }}</h2>
             <hr>
+
+<form method="post">
+    {% csrf_token %}
 {% if if_not_subscriber %}
-<form method="post">
-    {% csrf_token %}
-            <a class="btn btn-primary float-center" href="{% url 'is_subscriber' category.id  %}">Отписаться</a>
-</form>
+    <a class="btn btn-primary float-center" href="{% url 'subscriber' category.id %}">Отписаться</a>
 {% else %}
-<form method="post">
-    {% csrf_token %}
-            <a class="btn btn-primary float-center" href="{% url 'subscriber' category.id %}">Подписаться</a>
-</form>
+    <a class="btn btn-primary float-center" href="{% url 'subscriber' category.id %}">Подписаться</a>
 {% endif %}
+</form>
 
 
     {{ if_not_subscriber }}<br>
