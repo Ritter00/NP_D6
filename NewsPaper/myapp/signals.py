@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 @receiver(post_save, sender=Post)
 def send_new_post(sender, instance, created, **kwargs):
     cat = instance.postCategory.all().last()
-    mail = ['olzim@tut.by']
+    mail = []
 
     html_content = render_to_string('new_post.html',
                                     {'new_post': instance,
