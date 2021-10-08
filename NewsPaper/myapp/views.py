@@ -82,6 +82,10 @@ class PostCreateView(PermissionRequiredMixin, CreateView):
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         return context
 
+    def form_valid(self, form): # для сигнала, сохраняем обьект дважды, дважды сиганалит
+        self.object = form.save()
+        return super().form_valid(form)
+
 
 class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'post_create.html'

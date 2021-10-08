@@ -9,6 +9,6 @@
     <h2>
         <br>{{ new_post.title }}
     </h2>
-    <p>УХ - {{ cat }} ...ммм... <a href="{% url 'post_detail' new_post.id %}">{{ new_post.text|truncatechars:50 }}</a> </p>
+    <p><a href="{{new_post.get_absolute_url}}">{{ new_post.text|truncatechars:50 }}</a> </p>
 </body>
 </html>
