@@ -18,19 +18,19 @@ def send_new_post(sender, instance, created, **kwargs):
         mail = []
         for subscriber in category.subscribers.all():
             mail.append(subscriber.email)
-            html_content = render_to_string('new_post.html',
+        html_content = render_to_string('new_post.html',
                                                 {'new_post': instance,
                                                  'cat': category
                                                  },
                                                 )  # получаем наш html
-            msg = EmailMultiAlternatives(
+        msg = EmailMultiAlternatives(
                     subject=f'Новый пост в разделе {category}',
                     body=instance.title,
                     from_email='oOo.example@yandex.ru',
                     to=mail,
                 )
-            msg.attach_alternative(html_content, 'text/html')  # добавляем html
-            msg.send()
+        msg.attach_alternative(html_content, 'text/html')  # добавляем html
+        msg.send()
 
 
 

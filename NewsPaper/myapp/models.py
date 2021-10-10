@@ -72,7 +72,7 @@ class Post(models.Model):
         return f'{self.title}'
 
     def get_absolute_url(self):
-        return f'/news/{self.id}' # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
+        return f'http://127.0.0.1:8000/news/{self.id}' # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
 
 
 
